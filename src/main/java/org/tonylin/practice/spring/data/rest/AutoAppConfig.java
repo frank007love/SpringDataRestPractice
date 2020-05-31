@@ -74,7 +74,7 @@ public class AutoAppConfig {
 	@Bean
 	public CreateCustomersUseCase updateCustomersUseCase() {
 		//return new UpdateCustomersUseCase(CustomerGateway);
-		return new CreateCustomersUseCase(customerGateway);
+		return new CreateCustomersUseCase(customerGateway, null);
 	}
 	
 	@Bean

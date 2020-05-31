@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.tonylin.practice.spring.data.rest.repository.JPACustomerRepository;
 import org.tonylin.practice.spring.data.rest.usecase.CreateCustomersUseCase;
 
@@ -17,9 +18,12 @@ public class AppConfig {
 	@Autowired
 	private ApplicationContext context;
 	
+	@Autowired
+	private PlatformTransactionManager txManager;
+	
 	@Bean
 	public CreateCustomersUseCase updateCustomersUseCase() {
 		JPACustomerRepository customerGateway = context.getBean(JPACustomerRepository.class);
-		return new CreateCustomersUseCase(customerGateway);
+		return new CreateCustomersUseCase(customerGateway, txManager);
 	}
 }
