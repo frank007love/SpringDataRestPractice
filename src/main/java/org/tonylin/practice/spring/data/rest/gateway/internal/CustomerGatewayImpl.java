@@ -23,4 +23,10 @@ public class CustomerGatewayImpl implements CustomerRepository {
 	public List<Customer> findAll() {
 		return StreamSupport.stream(customerRepo.findAll().spliterator(), false).collect(Collectors.toList());
 	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
 }

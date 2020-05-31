@@ -6,10 +6,10 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,12 +19,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.tonylin.practice.spring.data.rest.gateway.CustomerRepository;
-import org.tonylin.practice.spring.data.rest.gateway.internal.CustomerGatewayImpl;
+import org.tonylin.practice.spring.data.rest.repository.JPACustomerRepository;
 import org.tonylin.practice.spring.data.rest.usecase.GetCustomersUseCase;
-import org.tonylin.practice.spring.data.rest.usecase.UpdateCustomersUseCase;
-
-import com.impossibl.postgres.jdbc.PGConnectionPoolDataSource;
-import com.impossibl.postgres.jdbc.PGDataSource;
+import org.tonylin.practice.spring.data.rest.usecase.CreateCustomersUseCase;
 
 @EnableTransactionManagement
 @ComponentScan
@@ -75,22 +72,26 @@ public class AppConfig {
 		return txManager;
 	}
 	
-//	private CustomerRepository CustomerGateway = new CustomerGatewayImpl();
-//	
+//	@Autowired
+//	private JPACustomerRepository customerGateway;
+	
 //	@Bean
 //	public CustomerRepository customerGateway() {
 //		return CustomerGateway;
 //	}
 	
-	@Bean
-	public UpdateCustomersUseCase updateCustomersUseCase() {
-		//return new UpdateCustomersUseCase(CustomerGateway);
-		return new UpdateCustomersUseCase();
-	}
+	@Autowired
+	private ApplicationContext context;
 	
 	@Bean
-	public GetCustomersUseCase getCustomersUseCase() {
-		//return new GetCustomersUseCase(CustomerGateway);
-		return new GetCustomersUseCase();
+	public CreateCustomersUseCase updateCustomersUseCase() {
+		JPACustomerRepository customerGateway = context.getBean(JPACustomerRepository.class);
+		//return new UpdateCustomersUseCase(CustomerGateway);
+		return new CreateCustomersUseCase(customerGateway);
 	}
+	
+//	@Bean
+//	public GetCustomersUseCase getCustomersUseCase() {
+//		return new GetCustomersUseCase();
+//	}
 }

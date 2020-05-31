@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.tonylin.practice.spring.data.rest.gateway.CustomerRepository;
 import org.tonylin.practice.spring.data.rest.gateway.internal.CustomerGatewayImpl;
 import org.tonylin.practice.spring.data.rest.usecase.GetCustomersUseCase;
-import org.tonylin.practice.spring.data.rest.usecase.UpdateCustomersUseCase;
+import org.tonylin.practice.spring.data.rest.usecase.CreateCustomersUseCase;
 
 @EnableTransactionManagement
 @ComponentScan

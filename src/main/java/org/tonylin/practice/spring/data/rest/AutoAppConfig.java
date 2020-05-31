@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.tonylin.practice.spring.data.rest.gateway.CustomerRepository;
 import org.tonylin.practice.spring.data.rest.gateway.internal.CustomerGatewayImpl;
 import org.tonylin.practice.spring.data.rest.usecase.GetCustomersUseCase;
-import org.tonylin.practice.spring.data.rest.usecase.UpdateCustomersUseCase;
+import org.tonylin.practice.spring.data.rest.usecase.CreateCustomersUseCase;
 
 @EnableTransactionManagement
 @ComponentScan
@@ -68,10 +68,13 @@ public class AutoAppConfig {
 //		return CustomerGateway;
 //	}
 	
+	@Autowired
+	private CustomerRepository customerGateway;
+	
 	@Bean
-	public UpdateCustomersUseCase updateCustomersUseCase() {
+	public CreateCustomersUseCase updateCustomersUseCase() {
 		//return new UpdateCustomersUseCase(CustomerGateway);
-		return new UpdateCustomersUseCase();
+		return new CreateCustomersUseCase(customerGateway);
 	}
 	
 	@Bean

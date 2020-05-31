@@ -7,4 +7,5 @@ import org.tonylin.practice.spring.data.rest.repository.Customer;
 public interface CustomerRepository {
 	Customer save(Customer entity);
 	List<Customer> findAll();
+	void deleteAll();
 }
